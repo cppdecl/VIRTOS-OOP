@@ -8,6 +8,8 @@
 #include "Programs/RemoveProgram/RemoveProgram.h"
 #include "Programs/NanoProgram/NanoProgram.h"
 #include "Programs/SnakeProgram/SnakeProgram.h"
+#include "Programs/ClockProgram/ClockProgram.h"
+
 
 ProgramManager::ProgramManager()
 {
@@ -56,6 +58,11 @@ void ProgramManager::RegisterPrograms()
 
     m_Programs["snake"] = new SnakeProgram();
     m_Programs["sss"] = m_Programs["snake"];
+
+    m_Programs["clock"] = new ClockProgram();
+    m_Programs["date"] = m_Programs["clock"];
+    m_Programs["dt"] = m_Programs["clock"];
+    m_Programs["time"] = m_Programs["clock"];
 }
 
 void ProgramManager::UnregisterPrograms()

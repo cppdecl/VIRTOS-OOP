@@ -53,13 +53,13 @@ void System::Run()
 
 void System::Shutdown() 
 {
+    Console::HideCursor();
+    Console::Log("{}VirtOS is shutting down...", Console::Color::MAGENTA);
+    Thread::Sleep(2000);
+
     GetUserAccountControl()->Shutdown();
     GetProgramManager()->UnregisterPrograms();
     
-    Console::HideCursor();
-    Console::Log("{}VirtOS is shutting down...", Console::Color::MAGENTA);
-
-    Thread::Sleep(2000);
     m_Running = false;
 }
 

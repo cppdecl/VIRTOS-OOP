@@ -16,6 +16,7 @@ add_executable(${PROJECT_NAME}
     Core/ProgramManager/Programs/RemoveProgram/RemoveProgram.cpp
     Core/ProgramManager/Programs/NanoProgram/NanoProgram.cpp
     Core/ProgramManager/Programs/SnakeProgram/SnakeProgram.cpp
+    Core/ProgramManager/Programs/ClockProgram/ClockProgram.cpp
 )
 
 target_link_libraries(${PROJECT_NAME} PUBLIC
