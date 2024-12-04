@@ -1,0 +1,10 @@
+.vscode/
+build/
+.cache/
+Bin/
+.vscode/*
+.vscode
+CMakeFiles/*
+CMakeFiles
+CMakeFiles/
+.VSCodeCounter
