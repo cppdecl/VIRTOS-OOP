@@ -1,9 +1,0 @@
-#ifndef CORE_FILESYSTEM_FILESYSTEM_H
-#define CORE_FILESYSTEM_FILESYSTEM_H
-
-class FileSystem 
-{
-
-};
-
-#endif // CORE_FILESYSTEM_FILESYSTEM_H

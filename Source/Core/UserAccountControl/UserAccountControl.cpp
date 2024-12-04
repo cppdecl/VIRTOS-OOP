@@ -58,6 +58,8 @@ void UserAccountControl::WaitForLogin()
         Console::Clear();
         Console::Log("{}{}Welcome back to {}VirtOS{}, {}{}!", Console::Color::BOLD, Console::Color::GREEN, Console::Color::CYAN, Console::Color::GREEN, Console::Color::BLUE, m_CurrentUser->GetUsername());
         
+        UserAccount* user = m_CurrentUser;
+        user->SetCurrentPath(user->GetHomePath());
     }
     else
     {
@@ -90,8 +92,10 @@ bool UserAccountControl::LoadUsers()
         UserAccount* root = CreateUser(new UserAccount());
         root->SetUsername("root");
         root->SetPassword("root");
-        root->SetHomePath("root");
+        root->SetHomePath(Constants::UserBaseDir + "root/");
         root->SetRoot(true);
+
+        IO::CreateDirectoryRecursive(root->GetHomePath());
 
         if (SaveUsers())
         {   
@@ -159,6 +163,28 @@ UserAccount* UserAccountControl::GetUser(std::string username)
     }
 
     return nullptr;
+}
+
+bool UserAccountControl::DeleteUser(std::string username)
+{
+    for (int i = 0; i < m_Users.size(); i++)
+    {
+        if (m_Users[i]->GetUsername() == username)
+        {
+            m_Users.erase(m_Users.begin() + i);
+            return true;
+        }
+    }
+
+    return false;
+}
+
+void UserAccountControl::Users(std::function<void(int, UserAccount*)> callback)
+{
+    for (int i = 0; i < m_Users.size(); i++)
+    {
+        callback(i, m_Users[i]);
+    }
 }
 
 bool UserAccountControl::SaveUsers()

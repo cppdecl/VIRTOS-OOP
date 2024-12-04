@@ -1,7 +1,6 @@
 #include "System.h"
 
 #include "Shell/Shell.h"
-#include "FileSystem/FileSystem.h"
 #include "ProgramManager/ProgramManager.h"
 #include "UserAccountControl/UserAccountControl.h"
 
@@ -31,9 +30,10 @@ bool System::Startup()
     Console::NextLine();
 
     m_Shell = new Shell();
-    m_ProgramManager = new ProgramManager();
-    m_FileSystem = new FileSystem();
     
+    m_ProgramManager = new ProgramManager();
+    m_ProgramManager->RegisterPrograms();
+
     m_UserAccountControl = new UserAccountControl();
     m_UserAccountControl->Startup();
 
@@ -54,8 +54,12 @@ void System::Run()
 void System::Shutdown() 
 {
     GetUserAccountControl()->Shutdown();
+    GetProgramManager()->UnregisterPrograms();
+    
     Console::HideCursor();
     Console::Log("{}VirtOS is shutting down...", Console::Color::MAGENTA);
+
+    Thread::Sleep(2000);
     m_Running = false;
 }
 
@@ -63,7 +67,6 @@ void System::Cleanup()
 {
     delete m_Shell;
     delete m_ProgramManager;
-    delete m_FileSystem;
     delete m_UserAccountControl;
 }
 
@@ -75,11 +78,6 @@ Shell* System::GetShell()
 ProgramManager* System::GetProgramManager() 
 {
     return m_ProgramManager;
-}
-
-FileSystem* System::GetFileSystem() 
-{
-    return m_FileSystem;
 }
 
 UserAccountControl* System::GetUserAccountControl() 

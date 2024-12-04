@@ -5,6 +5,7 @@
 #include <string>
 #include <iostream>
 #include <cstdint>
+#include <functional>
 
 class UserAccount 
 {
@@ -24,6 +25,9 @@ class UserAccount
     std::string GetHomePath() { return m_HomePath; }
     void SetHomePath(std::string homePath) { m_HomePath = homePath; }
 
+    std::string GetCurrentPath() { return m_CurrentPath; }
+    void SetCurrentPath(std::string currentPath) { m_CurrentPath = currentPath; }
+
     bool IsRoot() { return m_Root; }
     void SetRoot(bool root) { m_Root = root; }
     
@@ -31,6 +35,8 @@ class UserAccount
     std::string m_Username = "";
     std::string m_Password = "";
     std::string m_HomePath = "";
+
+    std::string m_CurrentPath = "";
 
     bool m_Root = false;
 };
@@ -46,16 +52,19 @@ class UserAccountControl
     void WaitForLogin();
     bool IsLoggedIn();
     void Logout();
+    bool SaveUsers();
     
     UserAccount* CreateUser(UserAccount* user);
     UserAccount* GetUser(std::string username);
+    bool DeleteUser(std::string username);
+
+    void Users(std::function<void(int, UserAccount*)> callback);
 
     public:
     UserAccount* GetCurrentUser() { return m_CurrentUser; }
-
+    
     private:
     bool LoadUsers();
-    bool SaveUsers();
     bool ValidateCredentials(std::string username, std::string password);
 
     private:

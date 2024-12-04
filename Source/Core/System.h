@@ -12,7 +12,6 @@
 
 class Shell;
 class ProgramManager;
-class FileSystem;
 class UserAccountControl;
 
 class System 
@@ -30,13 +29,11 @@ class System
 
     Shell* GetShell();
     ProgramManager* GetProgramManager();
-    FileSystem* GetFileSystem();
     UserAccountControl* GetUserAccountControl();
 
     private:
     Shell* m_Shell;
     ProgramManager* m_ProgramManager;
-    FileSystem* m_FileSystem;
     UserAccountControl* m_UserAccountControl;
 
     bool m_Running = false;
