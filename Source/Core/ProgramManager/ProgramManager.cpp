@@ -9,6 +9,7 @@
 #include "Programs/NanoProgram/NanoProgram.h"
 #include "Programs/SnakeProgram/SnakeProgram.h"
 #include "Programs/ClockProgram/ClockProgram.h"
+#include "Programs/NeofetchProgram/NeofetchProgram.h"
 
 
 ProgramManager::ProgramManager()
@@ -63,6 +64,8 @@ void ProgramManager::RegisterPrograms()
     m_Programs["date"] = m_Programs["clock"];
     m_Programs["dt"] = m_Programs["clock"];
     m_Programs["time"] = m_Programs["clock"];
+
+    m_Programs["neofetch"] = new NeofetchProgram();
 }
 
 void ProgramManager::UnregisterPrograms()
